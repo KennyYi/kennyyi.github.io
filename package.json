@@ -7,5 +7,13 @@
   "scripts": {
     "showcase": "npm run start --workspace=showcase",
     "deploy:showcase": "npm run deploy --workspace=showcase"
+  },
+  "dependencies": {
+    "@types/styled-components": "^5.1.34",
+    "styled-components": "^6.1.15"
+  },
+  "devDependencies": {
+    "@chromatic-com/storybook": "^3.2.4",
+    "prop-types": "^15.8.1"
   }
 }
