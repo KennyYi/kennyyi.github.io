@@ -5,6 +5,7 @@
     "packages/*"
   ],
   "scripts": {
-    "showcase": "npm run start --workspace=showcase"
+    "showcase": "npm run start --workspace=showcase",
+    "deploy:showcase": "npm run deploy --workspace=showcase"
   }
 }
