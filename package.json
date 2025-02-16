@@ -1,5 +1,10 @@
 {
-  "devDependencies": {
-    "gh-pages": "^6.3.0"
+  "name": "kennyyi.github.io",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "showcase": "npm run start --workspace=showcase"
   }
 }
