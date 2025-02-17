@@ -14,6 +14,7 @@ export const theme = {
     lg: '1.5rem',
   },
   radius: {
+    sm: '0.25rem',
     md: '0.375rem',
     lg: '0.5rem',
   },
@@ -26,6 +27,10 @@ export const theme = {
   },
   transitions: {
     fast: '0.2s ease',
+  },
+  breakpoints: {
+    mobile: '768px',
+    desktop: '1024px',
   },
 };
 
