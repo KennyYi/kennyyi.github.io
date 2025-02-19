@@ -46,6 +46,14 @@ const JustifyContentOptions = [
     { label: 'Space Evenly', value: 'space-evenly' },
 ];
 
+const AlignItemsOptions = [
+    { label: 'Flex Start', value: 'flex-start' },
+    { label: 'Flex End', value: 'flex-end' },
+    { label: 'Center', value: 'center' },
+    { label: 'Baseline', value: 'baseline' },
+    { label: 'Stretch', value: 'stretch' },
+];
+
 export const DemoSection = () => {
 
     const flexStyle = useContext(FlexContext);
@@ -59,12 +67,21 @@ export const DemoSection = () => {
             </Row>
             <Row>
                 <span>Justify Content: </span>
-                <Select label="Justify Content" options={JustifyContentOptions} onSelected={(option) => flexStyle.setJustifyContent(option.value as 'center' | 'flex-start' | 'flex-end' | 'space-between' | 'space-around' | 'space-evenly')} />
+                <Select label="Justify Content" options={JustifyContentOptions} onSelected={(option) => flexStyle.setJustifyContent(
+                    option.value as 'center' | 'flex-start' | 'flex-end' | 'space-between' | 'space-around' | 'space-evenly'
+                )} />
+            </Row>
+            <Row>
+                <span>Align Items: </span>
+                <Select label="Align Items" options={AlignItemsOptions} onSelected={(option) => flexStyle.setAlignItems(
+                    option.value as 'center' | 'flex-start' | 'flex-end' | 'baseline' | 'stretch'
+                )} />
             </Row>
         </ControllerBox>
         <Container style={{
             flexDirection: flexStyle.flexDirection, 
             justifyContent: flexStyle.justifyContent,
+            alignItems: flexStyle.alignItems,
             height: 'auto'}}>
             <FlexItem>Box 1</FlexItem>
             <FlexItem>Box 2</FlexItem>

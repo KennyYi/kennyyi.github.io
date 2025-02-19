@@ -2,12 +2,13 @@ import { useContext } from 'react';
 import styled from 'styled-components';
 import { CodeSectionContainer } from '../../styles';
 import { FlexContext } from '../context/FlexContext';
+import { theme } from '../../theme';
 
 const StyledCode = styled.pre`
-    background-color: ${({ theme }) => theme.colors.surface};
-    color: ${({ theme }) => theme.colors.text.primary};
-    padding: ${({ theme }) => theme.spacing.md};
-    border-radius: ${({ theme }) => theme.radius.md};
+    background-color: ${theme.colors.surface};
+    color: ${theme.colors.text.primary};
+    padding: ${theme.spacing.md};
+    border-radius: ${theme.radius.md};
     font-family: monospace;
     white-space: pre;
 `;

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components';
+import { theme } from '../../theme';
 
 interface Option {
     label: string;
@@ -19,10 +20,10 @@ const SelectContainer = styled.div`
 
 const SelectButton = styled.button`
     width: 100%;
-    padding: ${({ theme }) => theme.spacing.sm};
-    border: 1px solid ${({ theme }) => theme.colors.border};
-    border-radius: ${({ theme }) => theme.radius.md};
-    background: ${({ theme }) => theme.colors.surface};
+    padding: ${theme.spacing.sm};
+    border: 1px solid ${theme.colors.border};
+    border-radius: ${theme.radius.md};
+    background: ${theme.colors.surface};
     cursor: pointer;
     text-align: left;
 `;
@@ -32,24 +33,24 @@ const OptionsContainer = styled.div<{ isOpen: boolean }>`
     top: 100%;
     left: 0;
     right: 0;
-    margin-top: ${({ theme }) => theme.spacing.sm};
-    padding: ${({ theme }) => theme.spacing.sm};
-    background: ${({ theme }) => theme.colors.surface};
-    border: 1px solid ${({ theme }) => theme.colors.border};
-    border-radius: ${({ theme }) => theme.radius.md};
-    box-shadow: ${({ theme }) => theme.shadow.md};
-    z-index: ${({ theme }) => theme.zIndex.dropdown};
+    margin-top: ${theme.spacing.sm};
+    padding: ${theme.spacing.sm};
+    background: ${theme.colors.surface};
+    border: 1px solid ${theme.colors.border};
+    border-radius: ${theme.radius.md};
+    box-shadow: ${theme.shadow.md};
+    z-index: ${theme.zIndex.dropdown};
     display: ${({ isOpen }) => (isOpen ? 'block' : 'none')};
 `;
 
 const Option = styled.div`
-    padding: ${({ theme }) => theme.spacing.sm};
+    padding: ${theme.spacing.sm};
     cursor: pointer;
-    border-radius: ${({ theme }) => theme.radius.sm};
+    border-radius: ${theme.radius.sm};
 
     &:hover {
-        background: ${({ theme }) => theme.colors.primary};
-        color: ${({ theme }) => theme.colors.surface};
+        background: ${theme.colors.primary};
+        color: ${theme.colors.surface};
     }
 `;
 
