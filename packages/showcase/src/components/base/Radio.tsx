@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { ChangeEvent } from 'react';
+import { theme } from '../../theme';
 
 export interface RadioProps {
   value: string;
@@ -13,20 +14,20 @@ const RadioInput = styled.input`
   appearance: none;
   width: 20px;
   height: 20px;
-  border: 2px solid ${({ theme }) => theme.colors.border};
+  border: 2px solid ${theme.colors.border};
   border-radius: 50%;
-  margin-right: ${({ theme }) => theme.spacing.sm};
+  margin-right: ${theme.spacing.sm};
   position: relative;
   
   &:checked {
-    border-color: ${({ theme }) => theme.colors.primary};
+    border-color: ${theme.colors.primary};
     
     &::after {
       content: '';
       position: absolute;
       width: 12px;
       height: 12px;
-      background: ${({ theme }) => theme.colors.primary};
+      background: ${theme.colors.primary};
       border-radius: 50%;
       top: 50%;
       left: 50%;
@@ -39,7 +40,7 @@ const Label = styled.label`
   display: flex;
   align-items: center;
   cursor: pointer;
-  color: ${({ theme }) => theme.colors.text.primary};
+  color: ${theme.colors.text.primary};
 `;
 
 export const Radio = ({ value, name, checked, label, onChange }: RadioProps) => (

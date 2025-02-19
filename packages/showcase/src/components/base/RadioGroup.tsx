@@ -1,6 +1,6 @@
 import React, { ChangeEvent, ReactNode } from 'react';
 import { Flex } from './Flex';
-import { Radio, RadioProps } from './Radio';
+import { RadioProps } from './Radio';
 
 interface RadioGroupProps {
   children: ReactNode;
