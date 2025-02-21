@@ -6,6 +6,8 @@ import { DemoSectionContainer } from '../../styles';
 import { Button } from '../base/Button';
 import { FlexContext } from '../context/FlexContext';
 import { Select } from '../base/Select';
+import { RadioGroup } from '../base/RadioGroup';
+import { Radio } from '../base/Radio';
 
 const Container = styled.div`
     display: flex;
@@ -37,6 +39,17 @@ const FlexItem = styled.div`
     padding: ${theme.spacing.sm};
 `;
 
+type direction = 'row' | 'column' | 'row-reverse' | 'column-reverse';
+type justifyContent = 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around' | 'space-evenly';
+type alignItems = 'flex-start' | 'flex-end' | 'center' | 'baseline' | 'stretch';
+
+const DirectionOptions = [
+    { label: 'Row', value: 'row' },
+    { label: 'Column', value: 'column' },
+    { label: 'Row Reverse', value: 'row-reverse' },
+    { label: 'Column Reverse', value: 'column-reverse' },
+];
+
 const JustifyContentOptions = [
     { label: 'Flex Start', value: 'flex-start' },
     { label: 'Flex End', value: 'flex-end' },
@@ -62,19 +75,21 @@ export const DemoSection = () => {
         
         <ControllerBox>
             <Row>
-                <span>Flex Direction: </span>
-                <Button onClick={() => flexStyle.setFlexDirection(flexStyle.flexDirection === 'row' ? 'column' : 'row')}>{flexStyle.flexDirection}</Button>
+                <span>Direction: </span>
+                <Select label="Direction" options={DirectionOptions} onSelected={(option) => flexStyle.setFlexDirection(
+                    option.value as direction
+                )} />
             </Row>
             <Row>
                 <span>Justify Content: </span>
                 <Select label="Justify Content" options={JustifyContentOptions} onSelected={(option) => flexStyle.setJustifyContent(
-                    option.value as 'center' | 'flex-start' | 'flex-end' | 'space-between' | 'space-around' | 'space-evenly'
+                    option.value as justifyContent
                 )} />
             </Row>
             <Row>
                 <span>Align Items: </span>
                 <Select label="Align Items" options={AlignItemsOptions} onSelected={(option) => flexStyle.setAlignItems(
-                    option.value as 'center' | 'flex-start' | 'flex-end' | 'baseline' | 'stretch'
+                    option.value as alignItems
                 )} />
             </Row>
         </ControllerBox>

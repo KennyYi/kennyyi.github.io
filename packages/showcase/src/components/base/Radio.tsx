@@ -1,13 +1,12 @@
 import styled from 'styled-components';
-import { ChangeEvent } from 'react';
 import { theme } from '../../theme';
 
-export interface RadioProps {
-  value: string;
+interface RadioProps {
   name: string;
+  value: string;
+  label: string;
   checked?: boolean;
-  label?: string;
-  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  onChange?: (value: string) => void;
 }
 
 const RadioInput = styled.input`
@@ -43,15 +42,17 @@ const Label = styled.label`
   color: ${theme.colors.text.primary};
 `;
 
-export const Radio = ({ value, name, checked, label, onChange }: RadioProps) => (
-  <Label>
-    <RadioInput
-      type="radio"
-      value={value}
-      name={name}
-      checked={checked}
-      onChange={onChange}
-    />
-    {label}
-  </Label>
-); 
+export const Radio = ({ name, value, label, checked, onChange }: RadioProps) => {
+  return (
+    <Label>
+      <RadioInput
+        type="radio"
+        name={name}
+        value={value}
+        checked={checked}
+        onChange={(e) => onChange?.(e.target.value)}
+      />
+      {label}
+    </Label>
+  );
+}; 
