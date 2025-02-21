@@ -1,7 +1,7 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { theme } from '../../theme';
 
-export const Button = styled.button`
+export const Button = styled.button<{ selected?: boolean }>`
   background: ${theme.colors.surface};
   color: ${theme.colors.text.primary};
   padding: ${`${theme.spacing.sm} ${theme.spacing.md}`};
@@ -12,4 +12,8 @@ export const Button = styled.button`
   &:hover {
     background: ${theme.colors.primary};
   }
+
+  ${(p) => p.selected && css`
+    background: ${theme.colors.active};
+  `}
 `; 
