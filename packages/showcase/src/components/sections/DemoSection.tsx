@@ -3,17 +3,16 @@ import styled from 'styled-components';
 
 import { theme } from '../../theme';
 import { DemoSectionContainer } from '../../styles';
-import { Button } from '../base/Button';
 import { FlexContext } from '../context/FlexContext';
 import { Select } from '../base/Select';
-import { RadioGroup } from '../base/RadioGroup';
-import { Radio } from '../base/Radio';
 
 const Container = styled.div`
     display: flex;
     padding: 1px;
     border: 1px solid ${theme.colors.primary};
     border-radius: ${theme.radius.sm};
+    width: 500px;
+    height: 200px;
 `;
 
 const ControllerBox = styled.div`
@@ -42,6 +41,7 @@ const FlexItem = styled.div`
 type direction = 'row' | 'column' | 'row-reverse' | 'column-reverse';
 type justifyContent = 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around' | 'space-evenly';
 type alignItems = 'flex-start' | 'flex-end' | 'center' | 'baseline' | 'stretch';
+type flexWrap = 'wrap' | 'wrap-reverse' | 'nowrap';
 
 const DirectionOptions = [
     { label: 'Row', value: 'row' },
@@ -65,6 +65,12 @@ const AlignItemsOptions = [
     { label: 'Center', value: 'center' },
     { label: 'Baseline', value: 'baseline' },
     { label: 'Stretch', value: 'stretch' },
+];
+
+const FlexWrapOptions = [
+    { label: 'Wrap', value: 'wrap' },
+    { label: 'Wrap Reverse', value: 'wrap-reverse' },
+    { label: 'No Wrap', value: 'nowrap' },
 ];
 
 export const DemoSection = () => {
@@ -92,14 +98,29 @@ export const DemoSection = () => {
                     option.value as alignItems
                 )} />
             </Row>
+            <Row>
+                <span>Flex Wrap: </span>
+                <Select label="Flex Wrap" options={FlexWrapOptions} onSelected={(option) => flexStyle.setFlexWrap(
+                    option.value as flexWrap
+                )} />
+            </Row>
         </ControllerBox>
         <Container style={{
             flexDirection: flexStyle.flexDirection, 
             justifyContent: flexStyle.justifyContent,
             alignItems: flexStyle.alignItems,
-            height: 'auto'}}>
+            flexWrap: flexStyle.flexWrap,
+        }}>
             <FlexItem>Box 1</FlexItem>
             <FlexItem>Box 2</FlexItem>
+            <FlexItem>Box 3</FlexItem>
+            <FlexItem>Box 4</FlexItem>
+            <FlexItem>Box 5</FlexItem>
+            <FlexItem>Box 6</FlexItem>
+            <FlexItem>Box 7</FlexItem>
+            <FlexItem>Box 8</FlexItem>
+            <FlexItem>Box 9</FlexItem>
+            <FlexItem>Box 10</FlexItem>
         </Container>
     </DemoSectionContainer>);
 }
