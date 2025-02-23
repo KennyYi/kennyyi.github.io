@@ -22,13 +22,6 @@ export const theme = {
     md: '0.375rem',
     lg: '0.5rem',
   },
-  typography: {
-    size: {
-      sm: '0.875rem',
-      md: '1rem',
-      lg: '1.125rem',
-    },
-  },
   zIndex: {
     base: 0,            // 기본 요소
     dropdown: 1000,     // 드롭다운 메뉴
@@ -49,6 +42,53 @@ export const theme = {
     mobile: '768px',
     desktop: '1024px',
   },
+
+  typography: {
+    // 폰트 패밀리
+    fontFamily: {
+      primary: '"Pretendard", -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif',
+      code: 'source-code-pro, Menlo, Monaco, Consolas, monospace',
+    },
+    
+    // 폰트 가중치
+    fontWeight: {
+      // light: 300,
+      // regular: 400,
+      // medium: 500,
+      // semiBold: 600,
+      // bold: 700,
+      LIGHT: 300,
+      REGULAR: 400,
+      MEDIUM: 500,
+      SEMI_BOLD: 600,
+      BOLD: 700,
+    },
+    
+    // 폰트 크기
+    fontSize: {
+      HEADING: '1.875rem',
+      TITLE: '1.5rem',
+      SUBTITLE: '1.25rem',
+      BODY: '1rem',
+      CAPTION: '0.875rem',
+      BUTTON: '0.875rem',
+      LABEL: '0.75rem',
+    },
+    
+    // 행간
+    lineHeight: {
+      tight: 1.25,
+      normal: 1.5,
+      relaxed: 1.75,
+    },
+    
+    // 자간
+    letterSpacing: {
+      tight: '-0.025em',
+      normal: '0',
+      wide: '0.025em',
+    }
+  }
 };
 
 export type Theme = typeof theme; 

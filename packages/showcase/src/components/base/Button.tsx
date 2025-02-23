@@ -6,7 +6,7 @@ export const Button = styled.button<{ selected?: boolean }>`
   color: ${theme.colors.text.primary};
   padding: ${`${theme.spacing.sm} ${theme.spacing.md}`};
   border-radius: ${theme.radius.md};
-  font-size: ${theme.typography.size.sm};
+  font-size: ${theme.typography.fontSize['BUTTON']};
   transition: all ${theme.transitions.fast};
   
   &:hover {

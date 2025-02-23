@@ -5,6 +5,7 @@ import { theme } from '../../theme';
 import { DemoSectionContainer } from '../../styles';
 import { FlexContext } from '../context/FlexContext';
 import { Select } from '../base/Select';
+import Text from '../base/Text';
 
 const Container = styled.div`
     display: flex;
@@ -13,6 +14,21 @@ const Container = styled.div`
     border-radius: ${theme.radius.sm};
     width: 500px;
     height: 200px;
+`;
+
+const ControllerGroup = styled.div`
+    display: flex;
+    flex-direction: row;
+    gap: ${theme.spacing.md};
+    justify-content: flex-start;
+`;
+
+const Controller = styled.div`
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: ${theme.spacing.sm};
+    justify-content: flex-start;
 `;
 
 const ControllerBox = styled.div`
@@ -31,6 +47,14 @@ const Row = styled.div`
     align-items: center;
 `;
 
+const Column = styled.div`
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    gap: ${theme.spacing.sm};
+    justify-content: flex-start;
+`;
+
 const FlexItem = styled.div`
     background-color: ${theme.colors.primary};
     color: ${theme.colors.text};
@@ -39,9 +63,10 @@ const FlexItem = styled.div`
 `;
 
 type direction = 'row' | 'column' | 'row-reverse' | 'column-reverse';
+type flexWrap = 'wrap' | 'wrap-reverse' | 'nowrap';
 type justifyContent = 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around' | 'space-evenly';
 type alignItems = 'flex-start' | 'flex-end' | 'center' | 'baseline' | 'stretch';
-type flexWrap = 'wrap' | 'wrap-reverse' | 'nowrap';
+type alignContent = 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around' | 'stretch';
 
 const DirectionOptions = [
     { label: 'Row', value: 'row' },
@@ -67,6 +92,14 @@ const AlignItemsOptions = [
     { label: 'Stretch', value: 'stretch' },
 ];
 
+const AlignContentOptions = [
+    { label: 'Flex Start', value: 'flex-start' },
+    { label: 'Flex End', value: 'flex-end' },
+    { label: 'Center', value: 'center' },
+    { label: 'Space Between', value: 'space-between' },
+    { label: 'Space Around', value: 'space-around' },
+];
+
 const FlexWrapOptions = [
     { label: 'Wrap', value: 'wrap' },
     { label: 'Wrap Reverse', value: 'wrap-reverse' },
@@ -80,36 +113,55 @@ export const DemoSection = () => {
     return (<DemoSectionContainer style={{display: 'flex', flex: 1, height: '100%', flexDirection: 'column', gap: theme.spacing.md}}>
         
         <ControllerBox>
-            <Row>
-                <span>Direction: </span>
-                <Select label="Direction" options={DirectionOptions} onSelected={(option) => flexStyle.setFlexDirection(
-                    option.value as direction
-                )} />
-            </Row>
-            <Row>
-                <span>Justify Content: </span>
-                <Select label="Justify Content" options={JustifyContentOptions} onSelected={(option) => flexStyle.setJustifyContent(
-                    option.value as justifyContent
-                )} />
-            </Row>
-            <Row>
-                <span>Align Items: </span>
-                <Select label="Align Items" options={AlignItemsOptions} onSelected={(option) => flexStyle.setAlignItems(
-                    option.value as alignItems
-                )} />
-            </Row>
-            <Row>
-                <span>Flex Wrap: </span>
-                <Select label="Flex Wrap" options={FlexWrapOptions} onSelected={(option) => flexStyle.setFlexWrap(
-                    option.value as flexWrap
-                )} />
-            </Row>
+
+            <Column>
+                <Text variant="BODY" weight='BOLD'>Directions</Text>
+                <ControllerGroup>
+                    <Controller>
+                        <span>flex-direction:</span>
+                        <Select label="Direction" options={DirectionOptions} onSelected={(option) => flexStyle.setFlexDirection(
+                            option.value as direction
+                        )} />
+                    </Controller>
+                    <Controller>
+                        <span>flex-wrap:</span>
+                        <Select label="Flex Wrap" options={FlexWrapOptions} onSelected={(option) => flexStyle.setFlexWrap(
+                            option.value as flexWrap
+                        )} />
+                    </Controller>
+                </ControllerGroup>
+            </Column>
+
+            <Column>
+                <Text variant="BODY" weight='BOLD'>Alignment</Text>
+                <ControllerGroup>
+                    <Controller>
+                        <span>justify-content</span>
+                        <Select label="Justify Content" options={JustifyContentOptions} onSelected={(option) => flexStyle.setJustifyContent(
+                            option.value as justifyContent
+                        )} />
+                    </Controller>
+                    <Controller>
+                        <span>aling-items</span>
+                        <Select label="Align Items" options={AlignItemsOptions} onSelected={(option) => flexStyle.setAlignItems(
+                            option.value as alignItems
+                        )} />
+                    </Controller>
+                    <Controller>
+                        <span>aling-content</span>
+                        <Select label="Align Items" options={AlignContentOptions} onSelected={(option) => flexStyle.setAlignContent(
+                            option.value as alignContent
+                        )} />
+                    </Controller>
+                </ControllerGroup>
+            </Column>
         </ControllerBox>
         <Container style={{
             flexDirection: flexStyle.flexDirection, 
+            flexWrap: flexStyle.flexWrap,
             justifyContent: flexStyle.justifyContent,
             alignItems: flexStyle.alignItems,
-            flexWrap: flexStyle.flexWrap,
+            alignContent: flexStyle.alignContent,
         }}>
             <FlexItem>Box 1</FlexItem>
             <FlexItem>Box 2</FlexItem>
