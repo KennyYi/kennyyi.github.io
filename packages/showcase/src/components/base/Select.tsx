@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import styled from 'styled-components';
 import { theme } from '../../theme';
+import { Button } from './Button';
 
 interface Option {
     label: string;
@@ -18,7 +19,7 @@ const SelectContainer = styled.div`
     min-width: 120px;
 `;
 
-const SelectButton = styled.button`
+const SelectButton = styled(Button)`
     width: 100%;
     padding: ${theme.spacing.sm};
     border: 1px solid ${theme.colors.border};
