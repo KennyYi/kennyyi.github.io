@@ -10,7 +10,7 @@ import Text from '../base/Text';
 const Container = styled.div`
     display: flex;
     padding: 1px;
-    border: 1px solid ${theme.colors.primary};
+    border: 1px solid ${theme.colors.secondary.background};
     border-radius: ${theme.radius.sm};
     width: 500px;
     height: 200px;
@@ -56,10 +56,11 @@ const Column = styled.div`
 `;
 
 const FlexItem = styled.div`
-    background-color: ${theme.colors.primary};
-    color: ${theme.colors.text};
+    background-color: ${theme.colors.secondary.background};
+    color: ${theme.colors.secondary.text.default};
     border-radius: ${theme.radius.sm};
     padding: ${theme.spacing.sm};
+    border: 1px solid ${theme.colors.secondary.button.border.default};
 `;
 
 type direction = 'row' | 'column' | 'row-reverse' | 'column-reverse';
@@ -115,16 +116,16 @@ export const DemoSection = () => {
         <ControllerBox>
 
             <Column>
-                <Text variant="BODY" weight='BOLD'>Directions</Text>
+                <Text variant="BODY" weight='BOLD' color='primary'>Directions</Text>
                 <ControllerGroup>
                     <Controller>
-                        <span>flex-direction:</span>
+                        <Text variant="LABEL" color='primary'>flex-direction:</Text>
                         <Select label="Direction" options={DirectionOptions} onSelected={(option) => flexStyle.setFlexDirection(
                             option.value as direction
                         )} />
                     </Controller>
                     <Controller>
-                        <span>flex-wrap:</span>
+                    <Text variant="LABEL" color='primary'>flex-wrap:</Text>
                         <Select label="Flex Wrap" options={FlexWrapOptions} onSelected={(option) => flexStyle.setFlexWrap(
                             option.value as flexWrap
                         )} />
@@ -133,22 +134,22 @@ export const DemoSection = () => {
             </Column>
 
             <Column>
-                <Text variant="BODY" weight='BOLD'>Alignment</Text>
+                <Text variant="BODY" weight='BOLD' color='primary'>Alignment</Text>
                 <ControllerGroup>
                     <Controller>
-                        <span>justify-content</span>
+                    <Text variant="LABEL" color='primary'>justify-content</Text>
                         <Select label="Justify Content" options={JustifyContentOptions} onSelected={(option) => flexStyle.setJustifyContent(
                             option.value as justifyContent
                         )} />
                     </Controller>
                     <Controller>
-                        <span>aling-items</span>
+                    <Text variant="LABEL" color='primary'>aling-items</Text>
                         <Select label="Align Items" options={AlignItemsOptions} onSelected={(option) => flexStyle.setAlignItems(
                             option.value as alignItems
                         )} />
                     </Controller>
                     <Controller>
-                        <span>aling-content</span>
+                    <Text variant="LABEL" color='primary'>aling-content</Text>
                         <Select label="Align Items" options={AlignContentOptions} onSelected={(option) => flexStyle.setAlignContent(
                             option.value as alignContent
                         )} />

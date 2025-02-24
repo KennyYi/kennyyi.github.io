@@ -1,13 +1,51 @@
 export const theme = {
   colors: {
-    primary: '#007AFF',
-    surface: '#FFFFFF',
-    active: '#0056B3',
-    border: '#E2E8F0',
-    text: {
-      primary: '#1A202C',
-      secondary: '#718096',
+    primary: {
+      background: '#1F2933',  // primary.900
+      text: {
+        default: '#E4E7EB',   // primary.100
+        hover: '#CBD2D9',     // primary.200
+        active: '#9AA5B1',    // primary.300
+        disabled: '#616E7C',  // primary.500
+      },
+      button: {
+        background: {
+          default: '#27AB83',  // secondary.500
+          hover: '#199473',    // secondary.600
+          active: '#147D64',   // secondary.700
+          disabled: '#8EEDC7', // secondary.200
+        },
+        border: {
+          default: '#27AB83',  // secondary.500
+          hover: '#199473',    // secondary.600
+          active: '#147D64',   // secondary.700
+          disabled: '#8EEDC7', // secondary.200
+        },
+      },
     },
+    secondary: {
+      background: '#EFFCF6',   // secondary.50
+      text: {
+        default: '#1F2933',    // primary.900
+        hover: '#323F4B',      // primary.800
+        active: '#52606D',     // primary.600
+        disabled: '#9AA5B1',   // primary.300
+      },
+      button: {
+        background: {
+          default: '#3E4C59',  // primary.700
+          hover: '#52606D',    // primary.600
+          active: '#616E7C',   // primary.500
+          disabled: '#CBD2D9', // primary.200
+        },
+        border: {
+          default: '#3E4C59',  // primary.700
+          hover: '#52606D',    // primary.600
+          active: '#616E7C',   // primary.500
+          disabled: '#CBD2D9', // primary.200
+        },
+      },
+    }
   },
   shadow: {
     md: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
@@ -52,11 +90,6 @@ export const theme = {
     
     // 폰트 가중치
     fontWeight: {
-      // light: 300,
-      // regular: 400,
-      // medium: 500,
-      // semiBold: 600,
-      // bold: 700,
       LIGHT: 300,
       REGULAR: 400,
       MEDIUM: 500,
