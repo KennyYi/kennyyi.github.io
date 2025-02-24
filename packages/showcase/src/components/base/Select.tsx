@@ -22,9 +22,9 @@ const SelectContainer = styled.div`
 const SelectButton = styled(Button)`
     width: 100%;
     padding: ${theme.spacing.sm};
-    border: 1px solid ${theme.colors.border};
+    border: 1px solid ${theme.colors.primary.button.border.default};
     border-radius: ${theme.radius.md};
-    background: ${theme.colors.surface};
+    background: ${theme.colors.primary.button.background.default};
     cursor: pointer;
     text-align: left;
 `;
@@ -36,8 +36,8 @@ const OptionsContainer = styled.div<{ isOpen: boolean }>`
     right: 0;
     margin-top: ${theme.spacing.sm};
     padding: ${theme.spacing.sm};
-    background: ${theme.colors.surface};
-    border: 1px solid ${theme.colors.border};
+    background: ${theme.colors.primary.button.background.default};
+    border: 1px solid ${theme.colors.primary.button.border.default};
     border-radius: ${theme.radius.md};
     box-shadow: ${theme.shadow.md};
     z-index: ${theme.zIndex.dropdown};
@@ -48,10 +48,11 @@ const Option = styled.div`
     padding: ${theme.spacing.sm};
     cursor: pointer;
     border-radius: ${theme.radius.sm};
+    color: ${theme.colors.primary.text.default};
 
     &:hover {
-        background: ${theme.colors.primary};
-        color: ${theme.colors.surface};
+        background: ${theme.colors.primary.button.background.hover};
+        color: ${theme.colors.primary.text.hover};
     }
 `;
 

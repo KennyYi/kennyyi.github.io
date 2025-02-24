@@ -2,18 +2,20 @@ import styled, { css } from 'styled-components';
 import { theme } from '../../theme';
 
 export const Button = styled.button<{ selected?: boolean }>`
-  background: ${theme.colors.surface};
-  color: ${theme.colors.text.primary};
+  background: ${theme.colors.primary.button.background};
+  color: ${theme.colors.primary.text.default};
   padding: ${`${theme.spacing.sm} ${theme.spacing.md}`};
   border-radius: ${theme.radius.md};
   font-size: ${theme.typography.fontSize['BUTTON']};
   transition: all ${theme.transitions.fast};
   
   &:hover {
-    background: ${theme.colors.primary};
+    background: ${theme.colors.primary.button.background.hover};
+    color: ${theme.colors.primary.text.hover};
   }
 
   ${(p) => p.selected && css`
-    background: ${theme.colors.active};
+    background: ${theme.colors.primary.button.background.active};
+    color: ${theme.colors.primary.text.active};
   `}
 `; 

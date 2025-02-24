@@ -16,7 +16,7 @@ export const DemoSectionContainer = styled.div`
     display: flex;
     flex-grow: 2;
     height: 100%;
-    background-color: ${theme.colors.surface};
+    background-color: ${theme.colors.primary.background};
     justify-content: center;
     padding: ${theme.spacing.lg};
 
@@ -29,7 +29,7 @@ export const CodeSectionContainer = styled.div`
     display: flex;
     flex-grow: 1;
     height: 100%;
-    background-color: ${theme.colors.surface};
+    background-color: ${theme.colors.secondary.background};
     justify-content: center;
     padding: ${theme.spacing.lg};
 
