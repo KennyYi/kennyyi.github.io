@@ -12,8 +12,8 @@ export const theme = {
         background: {
           default: '#27AB83',  // secondary.500
           hover: '#199473',    // secondary.600
-          active: '#147D64',   // secondary.700
-          disabled: '#8EEDC7', // secondary.200
+          active: '#83d4c1',   // secondary.700
+          disabled: '#859991', // secondary.200
         },
         border: {
           default: '#27AB83',  // secondary.500

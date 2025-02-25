@@ -27,10 +27,11 @@ export const DemoSectionContainer = styled.div`
 
 export const CodeSectionContainer = styled.div`
     display: flex;
+    flex-direction: column;
     flex-grow: 1;
     height: 100%;
     background-color: ${theme.colors.secondary.background};
-    justify-content: center;
+    justify-content: start;
     padding: ${theme.spacing.lg};
 
     @media (max-width: ${theme.breakpoints.mobile}) {
