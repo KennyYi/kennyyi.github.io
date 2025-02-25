@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import styled from 'styled-components';
 
 import { theme } from '../../theme';
@@ -6,6 +6,7 @@ import { DemoSectionContainer } from '../../styles';
 import { FlexContext } from '../context/FlexContext';
 import { Select } from '../base/Select';
 import Text from '../base/Text';
+import { Button } from '../base/Button';
 
 const Container = styled.div`
     display: flex;
@@ -107,14 +108,17 @@ const FlexWrapOptions = [
     { label: 'No Wrap', value: 'nowrap' },
 ];
 
+const MIN_CHILDREN = 1;
+const MAX_CHILDREN = 10;
+
 export const DemoSection = () => {
 
+    const [childrenNumber, setChildrenNumber] = useState(2);
     const flexStyle = useContext(FlexContext);
 
     return (<DemoSectionContainer style={{display: 'flex', flex: 1, height: '100%', flexDirection: 'column', gap: theme.spacing.md}}>
         
         <ControllerBox>
-
             <Column>
                 <Text variant="BODY" weight='BOLD' color='primary'>Directions</Text>
                 <ControllerGroup>
@@ -156,6 +160,15 @@ export const DemoSection = () => {
                     </Controller>
                 </ControllerGroup>
             </Column>
+
+            <Column>
+                <Text variant="BODY" weight='BOLD' color='primary'>Childrens</Text>
+                <Row>
+                    <Button onClick={() => setChildrenNumber(Math.max(childrenNumber - 1, MIN_CHILDREN))}>-</Button>
+                    <Text variant="BODY" weight='BOLD' color='primary'>{childrenNumber}</Text>
+                    <Button onClick={() => setChildrenNumber(Math.min(childrenNumber + 1, MAX_CHILDREN))}>+</Button>
+                </Row>
+            </Column>
         </ControllerBox>
         <Container style={{
             flexDirection: flexStyle.flexDirection, 
@@ -164,16 +177,9 @@ export const DemoSection = () => {
             alignItems: flexStyle.alignItems,
             alignContent: flexStyle.alignContent,
         }}>
-            <FlexItem>Box 1</FlexItem>
-            <FlexItem>Box 2</FlexItem>
-            <FlexItem>Box 3</FlexItem>
-            <FlexItem>Box 4</FlexItem>
-            <FlexItem>Box 5</FlexItem>
-            <FlexItem>Box 6</FlexItem>
-            <FlexItem>Box 7</FlexItem>
-            <FlexItem>Box 8</FlexItem>
-            <FlexItem>Box 9</FlexItem>
-            <FlexItem>Box 10</FlexItem>
+            {Array.from({length: childrenNumber}).map((_, index) => (
+                <FlexItem key={index}>Box {index + 1}</FlexItem>
+            ))}
         </Container>
     </DemoSectionContainer>);
 }

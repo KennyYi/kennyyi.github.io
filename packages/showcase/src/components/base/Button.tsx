@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 import { theme } from '../../theme';
 
 export const Button = styled.button<{ selected?: boolean }>`
-  background: ${theme.colors.primary.button.background};
+  background: ${theme.colors.primary.button.background.default};
   color: ${theme.colors.primary.text.default};
   padding: ${`${theme.spacing.sm} ${theme.spacing.md}`};
   border-radius: ${theme.radius.md};
