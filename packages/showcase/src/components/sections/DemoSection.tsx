@@ -7,7 +7,7 @@ import { FlexContext } from '../context/FlexContext';
 import { Select } from '../base/Select';
 import Text from '../base/Text';
 import { Button } from '../base/Button';
-
+import { FlexItem } from '../base/FlexItem';
 const Container = styled.div`
     display: flex;
     padding: 1px;
@@ -54,14 +54,6 @@ const Column = styled.div`
     width: 100%;
     gap: ${theme.spacing.sm};
     justify-content: flex-start;
-`;
-
-const FlexItem = styled.div`
-    background-color: ${theme.colors.secondary.background};
-    color: ${theme.colors.secondary.text.default};
-    border-radius: ${theme.radius.sm};
-    padding: ${theme.spacing.sm};
-    border: 1px solid ${theme.colors.secondary.button.border.default};
 `;
 
 type direction = 'row' | 'column' | 'row-reverse' | 'column-reverse';
