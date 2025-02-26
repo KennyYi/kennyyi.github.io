@@ -17,7 +17,7 @@ export const DemoSectionContainer = styled.div`
     flex-grow: 2;
     height: 100%;
     background-color: ${theme.colors.primary.background};
-    justify-content: center;
+    justify-content: start;
     padding: ${theme.spacing.lg};
 
     @media (max-width: ${theme.breakpoints.mobile}) {
@@ -37,4 +37,20 @@ export const CodeSectionContainer = styled.div`
     @media (max-width: ${theme.breakpoints.mobile}) {
         padding: ${theme.spacing.md};
     }
+`;
+
+export const FlexItem = styled.div`
+    background-color: ${theme.colors.secondary.background};
+    color: ${theme.colors.secondary.text.default};
+    border-radius: ${theme.radius.sm};
+    padding: ${theme.spacing.sm};
+    border: 1px solid ${theme.colors.secondary.button.border.default};
+
+    &:hover {
+        color: ${theme.colors.secondary.text.hover};
+        box-shadow: ${theme.shadow.md};
+        border: 2px solid ${theme.colors.secondary.button.border.hover};
+    }
+    
+    cursor: pointer;
 `;

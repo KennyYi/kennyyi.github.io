@@ -1,48 +1,48 @@
 export const theme = {
   colors: {
     primary: {
-      background: '#1F2933',  // primary.900
+      background: '#1F2933',  
       text: {
-        default: '#E4E7EB',   // primary.100
-        hover: '#CBD2D9',     // primary.200
-        active: '#9AA5B1',    // primary.300
-        disabled: '#616E7C',  // primary.500
+        default: '#E4E7EB',
+        hover: '#CBD2D9',
+        active: '#9AA5B1',
+        disabled: '#616E7C',
       },
       button: {
         background: {
-          default: '#27AB83',  // secondary.500
-          hover: '#199473',    // secondary.600
-          active: '#83d4c1',   // secondary.700
-          disabled: '#859991', // secondary.200
+          default: '#27AB83',  
+          hover: '#199473',    
+          active: '#83d4c1',   
+          disabled: '#859991', 
         },
         border: {
-          default: '#27AB83',  // secondary.500
-          hover: '#199473',    // secondary.600
-          active: '#147D64',   // secondary.700
-          disabled: '#8EEDC7', // secondary.200
+          default: '#27AB83',  
+          hover: '#199473',
+          active: '#147D64',
+          disabled: '#8EEDC7',
         },
       },
     },
     secondary: {
-      background: '#EFFCF6',   // secondary.50
+      background: '#EFFCF6',
       text: {
-        default: '#1F2933',    // primary.900
-        hover: '#323F4B',      // primary.800
-        active: '#52606D',     // primary.600
-        disabled: '#9AA5B1',   // primary.300
+        default: '#1F2933',
+        hover: '#323F4B',
+        active: '#52606D',
+        disabled: '#9AA5B1',
       },
       button: {
         background: {
-          default: '#3E4C59',  // primary.700
-          hover: '#52606D',    // primary.600
-          active: '#616E7C',   // primary.500
-          disabled: '#CBD2D9', // primary.200
+          default: '#3E4C59',
+          hover: '#52606D',
+          active: '#616E7C',
+          disabled: '#CBD2D9',
         },
         border: {
-          default: '#3E4C59',  // primary.700
-          hover: '#52606D',    // primary.600
-          active: '#616E7C',   // primary.500
-          disabled: '#CBD2D9', // primary.200
+          default: '#3E4C59',
+          hover: '#52606D',
+          active: '#616E7C',
+          disabled: '#CBD2D9',
         },
       },
     }
@@ -62,16 +62,16 @@ export const theme = {
   },
   zIndex: {
     base: 0,            // 기본 요소
-    dropdown: 1000,     // 드롭다운 메뉴
-    sticky: 2000,       // 고정 헤더/푸터
-    navbar: 3000,       // 네비게이션 바
-    drawer: 4000,       // 사이드 드로어
-    modal: 5000,        // 모달 창
-    tooltip: 6000,      // 툴팁
-    toast: 7000,        // 토스트 메시지
-    popover: 8000,      // 팝오버
-    overlay: 9000,      // 오버레이/딤드
-    spinner: 10000,     // 로딩 스피너
+    sticky: 100,        // 고정 헤더/푸터
+    navbar: 200,        // 네비게이션 바
+    dropdown: 300,      // 드롭다운 메뉴
+    overlay: 400,       // 오버레이/딤드 (모달, 팝오버 등의 배경)
+    drawer: 500,        // 사이드 드로어
+    modal: 600,         // 모달 창
+    popover: 700,       // 팝오버
+    tooltip: 800,       // 툴팁
+    toast: 900,         // 토스트 메시지
+    spinner: 1000,      // 로딩 스피너
   },
   transitions: {
     fast: '0.2s ease',
