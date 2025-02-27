@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useCallback, useMemo } from 'react';
 import styled from 'styled-components';
 
 import { theme } from '../../theme';
@@ -8,6 +8,8 @@ import { Select } from '../base/Select';
 import Text from '../base/Text';
 import { Button } from '../base/Button';
 import { FlexItem } from '../base/FlexItem';
+import { Direction, FlexWrap, JustifyContent, AlignItems, AlignContent, DEFAULT_FLEX_ITEM_PROPERTIES } from '../context/types';
+
 const Container = styled.div`
     display: flex;
     padding: 1px;
@@ -56,12 +58,6 @@ const Column = styled.div`
     justify-content: flex-start;
 `;
 
-type direction = 'row' | 'column' | 'row-reverse' | 'column-reverse';
-type flexWrap = 'wrap' | 'wrap-reverse' | 'nowrap';
-type justifyContent = 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around' | 'space-evenly';
-type alignItems = 'flex-start' | 'flex-end' | 'center' | 'baseline' | 'stretch';
-type alignContent = 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around' | 'stretch';
-
 const DirectionOptions = [
     { label: 'Row', value: 'row' },
     { label: 'Column', value: 'column' },
@@ -105,8 +101,33 @@ const MAX_CHILDREN = 10;
 
 export const DemoSection = () => {
 
-    const [childrenNumber, setChildrenNumber] = useState(2);
     const flexStyle = useContext(FlexContext);
+
+    const { directionOption, flexWrapOption, justifyContentOption, alignItemsOption, alignContentOption } = useMemo(() => {
+        const directionOption = DirectionOptions.find(option => option.value === flexStyle.flexDirection)!;
+        const flexWrapOption = FlexWrapOptions.find(option => option.value === flexStyle.flexWrap)!;
+        const justifyContentOption = JustifyContentOptions.find(option => option.value === flexStyle.justifyContent)!;
+        const alignItemsOption = AlignItemsOptions.find(option => option.value === flexStyle.alignItems)!;
+        const alignContentOption = AlignContentOptions.find(option => option.value === flexStyle.alignContent)!;
+
+        return { directionOption, flexWrapOption, justifyContentOption, alignItemsOption, alignContentOption };
+    }, [flexStyle]);
+
+    const flexItems = useMemo((): React.ReactElement[] => {
+        return flexStyle.flexItems.map((item, index) => (
+            <FlexItem key={'item-'+index} flexProperties={item}>Box {index + 1}</FlexItem>
+        ));
+    }, [flexStyle.flexItems]);
+
+    const handleChangeFlexItem = useCallback((count: number) => {
+        if (count < MIN_CHILDREN || count > MAX_CHILDREN) return;
+
+        if (count > flexStyle.flexItems.length)  {
+            flexStyle.setFlexItems([...flexStyle.flexItems, DEFAULT_FLEX_ITEM_PROPERTIES]);
+        } else {
+            flexStyle.setFlexItems(flexStyle.flexItems.slice(0, count));
+        }
+    }, [flexStyle.flexItems]);
 
     return (<DemoSectionContainer style={{display: 'flex', flex: 1, height: '100%', flexDirection: 'column', gap: theme.spacing.md}}>
         
@@ -116,14 +137,14 @@ export const DemoSection = () => {
                 <ControllerGroup>
                     <Controller>
                         <Text variant="LABEL" color='primary'>flex-direction:</Text>
-                        <Select label="Direction" options={DirectionOptions} onSelected={(option) => flexStyle.setFlexDirection(
-                            option.value as direction
+                        <Select label="Direction" selected={directionOption} options={DirectionOptions} onSelected={(option) => flexStyle.setFlexDirection(
+                            option.value as Direction
                         )} />
                     </Controller>
                     <Controller>
                     <Text variant="LABEL" color='primary'>flex-wrap:</Text>
-                        <Select label="Flex Wrap" options={FlexWrapOptions} onSelected={(option) => flexStyle.setFlexWrap(
-                            option.value as flexWrap
+                        <Select label="Flex Wrap" selected={flexWrapOption} options={FlexWrapOptions} onSelected={(option) => flexStyle.setFlexWrap(
+                            option.value as FlexWrap
                         )} />
                     </Controller>
                 </ControllerGroup>
@@ -134,20 +155,20 @@ export const DemoSection = () => {
                 <ControllerGroup>
                     <Controller>
                     <Text variant="LABEL" color='primary'>justify-content</Text>
-                        <Select label="Justify Content" options={JustifyContentOptions} onSelected={(option) => flexStyle.setJustifyContent(
-                            option.value as justifyContent
+                        <Select label="Justify Content" selected={justifyContentOption} options={JustifyContentOptions} onSelected={(option) => flexStyle.setJustifyContent(
+                            option.value as JustifyContent
                         )} />
                     </Controller>
                     <Controller>
                     <Text variant="LABEL" color='primary'>aling-items</Text>
-                        <Select label="Align Items" options={AlignItemsOptions} onSelected={(option) => flexStyle.setAlignItems(
-                            option.value as alignItems
+                        <Select label="Align Items" selected={alignItemsOption} options={AlignItemsOptions} onSelected={(option) => flexStyle.setAlignItems(
+                            option.value as AlignItems
                         )} />
                     </Controller>
                     <Controller>
                     <Text variant="LABEL" color='primary'>aling-content</Text>
-                        <Select label="Align Items" options={AlignContentOptions} onSelected={(option) => flexStyle.setAlignContent(
-                            option.value as alignContent
+                        <Select label="Align Items" selected={alignContentOption} options={AlignContentOptions} onSelected={(option) => flexStyle.setAlignContent(
+                            option.value as AlignContent
                         )} />
                     </Controller>
                 </ControllerGroup>
@@ -156,9 +177,9 @@ export const DemoSection = () => {
             <Column>
                 <Text variant="BODY" weight='BOLD' color='primary'>Childrens</Text>
                 <Row>
-                    <Button onClick={() => setChildrenNumber(Math.max(childrenNumber - 1, MIN_CHILDREN))}>-</Button>
-                    <Text variant="BODY" weight='BOLD' color='primary'>{childrenNumber}</Text>
-                    <Button onClick={() => setChildrenNumber(Math.min(childrenNumber + 1, MAX_CHILDREN))}>+</Button>
+                    <Button onClick={() => handleChangeFlexItem(Math.max(flexStyle.flexItems.length - 1, MIN_CHILDREN))}>-</Button>
+                    <Text variant="BODY" weight='BOLD' color='primary'>{flexStyle.flexItems.length}</Text>
+                    <Button onClick={() => handleChangeFlexItem(Math.min(flexStyle.flexItems.length + 1, MAX_CHILDREN))}>+</Button>
                 </Row>
             </Column>
         </ControllerBox>
@@ -169,9 +190,7 @@ export const DemoSection = () => {
             alignItems: flexStyle.alignItems,
             alignContent: flexStyle.alignContent,
         }}>
-            {Array.from({length: childrenNumber}).map((_, index) => (
-                <FlexItem key={index}>Box {index + 1}</FlexItem>
-            ))}
+            {flexItems}
         </Container>
     </DemoSectionContainer>);
 }

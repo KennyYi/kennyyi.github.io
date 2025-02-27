@@ -1,36 +1,5 @@
 import { createContext, useState, useEffect } from 'react';
-
-type FlexValue = {
-    flexDirection: 'row' | 'row-reverse' | 'column' | 'column-reverse';
-    flexWrap: 'nowrap' | 'wrap' | 'wrap-reverse';
-    justifyContent: 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around' | 'space-evenly';
-    alignItems: 'flex-start' | 'flex-end' | 'center' | 'baseline' | 'stretch';
-    alignContent: 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around' | 'stretch';
-    gap: string;
-    rowGap: string;
-    columnGap: string;
-    flex: string;
-    flexGrow: number;
-    flexShrink: number;
-    flexBasis: string;
-    order: number;
-    alignSelf: 'auto' | 'flex-start' | 'flex-end' | 'center' | 'baseline' | 'stretch';
-
-    setFlexDirection: (direction: FlexValue['flexDirection']) => void;
-    setFlexWrap: (wrap: FlexValue['flexWrap']) => void;
-    setJustifyContent: (content: FlexValue['justifyContent']) => void;
-    setAlignItems: (items: FlexValue['alignItems']) => void;
-    setAlignContent: (content: FlexValue['alignContent']) => void;
-    setGap: (gap: string) => void;
-    setRowGap: (gap: string) => void;
-    setColumnGap: (gap: string) => void;
-    setFlex: (flex: string) => void;
-    setFlexGrow: (grow: number) => void;
-    setFlexShrink: (shrink: number) => void;
-    setFlexBasis: (basis: string) => void;
-    setOrder: (order: number) => void;
-    setAlignSelf: (self: FlexValue['alignSelf']) => void;
-};
+import { AlignContent, AlignItems, AlignSelf, DEFAULT_FLEX_ITEM_PROPERTIES, Direction, FlexBasis, FlexItemProperties, FlexItemValue, FlexValue, FlexWrap, JustifyContent } from './types';
 
 export const FlexContext = createContext<FlexValue>({
     flexDirection: 'row',
@@ -46,7 +15,8 @@ export const FlexContext = createContext<FlexValue>({
     flexShrink: 1,
     flexBasis: 'auto',
     order: 0,
-    alignSelf: 'auto',
+    alignSelf: 'flex-start',
+    flexItems: [],
 
     setFlexDirection: () => {},
     setFlexWrap: () => {},
@@ -62,28 +32,25 @@ export const FlexContext = createContext<FlexValue>({
     setFlexBasis: () => {},
     setOrder: () => {},
     setAlignSelf: () => {},
+    setFlexItems: () => {},
 });
 
 export const FlexProvider = ({ children }: { children: React.ReactNode }) => {
-    const [flexDirection, setFlexDirection] = useState<FlexValue['flexDirection']>('row');
-    const [flexWrap, setFlexWrap] = useState<FlexValue['flexWrap']>('nowrap');
-    const [justifyContent, setJustifyContent] = useState<FlexValue['justifyContent']>('flex-start');
-    const [alignItems, setAlignItems] = useState<FlexValue['alignItems']>('flex-start');
-    const [alignContent, setAlignContent] = useState<FlexValue['alignContent']>('flex-start');
+    const [flexDirection, setFlexDirection] = useState<Direction>('row');
+    const [flexWrap, setFlexWrap] = useState<FlexWrap>('nowrap');
+    const [justifyContent, setJustifyContent] = useState<JustifyContent>('flex-start');
+    const [alignItems, setAlignItems] = useState<AlignItems>('flex-start');
+    const [alignContent, setAlignContent] = useState<AlignContent>('flex-start');
     const [gap, setGap] = useState('0');
     const [rowGap, setRowGap] = useState('0');
     const [columnGap, setColumnGap] = useState('0');
     const [flex, setFlex] = useState('0 1 auto');
     const [flexGrow, setFlexGrow] = useState(0);
     const [flexShrink, setFlexShrink] = useState(1);
-    const [flexBasis, setFlexBasis] = useState('auto');
+    const [flexBasis, setFlexBasis] = useState<FlexBasis>('auto');
     const [order, setOrder] = useState(0);
-    const [alignSelf, setAlignSelf] = useState<FlexValue['alignSelf']>('auto');
-
-    // flexDirection 이 업데이트 되는지 확인해보자.
-    useEffect(() => {
-        console.log('flexDirection', flexDirection);
-    }, [flexDirection]);
+    const [alignSelf, setAlignSelf] = useState<AlignSelf>('flex-start');
+    const [flexItems, setFlexItems] = useState<FlexItemProperties[]>([DEFAULT_FLEX_ITEM_PROPERTIES, DEFAULT_FLEX_ITEM_PROPERTIES]);
 
     return (
         <FlexContext.Provider value={{
@@ -101,6 +68,7 @@ export const FlexProvider = ({ children }: { children: React.ReactNode }) => {
             flexBasis,
             order,
             alignSelf,
+            flexItems,
             setFlexDirection,
             setFlexWrap,
             setJustifyContent,
@@ -115,6 +83,7 @@ export const FlexProvider = ({ children }: { children: React.ReactNode }) => {
             setFlexBasis,
             setOrder,
             setAlignSelf,
+            setFlexItems,
         }}>
             {children}
         </FlexContext.Provider>

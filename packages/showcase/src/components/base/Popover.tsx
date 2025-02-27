@@ -6,11 +6,11 @@ const PopoverContainer = styled.div<{ top: number; left: number }>`
     position: absolute;
     top: ${props => props.top}px;
     left: ${props => props.left}px;
-    background-color: ${theme.colors.primary.background};
-    color: ${theme.colors.primary.text.default};
+    background-color: ${theme.colors.secondary.background};
+    color: ${theme.colors.secondary.text.default};
     padding: ${theme.spacing.md};
     border-radius: ${theme.radius.md};
-    box-shadow: ${theme.shadow.md};
+    box-shadow: ${theme.shadow.lg};
     z-index: ${theme.zIndex.popover};
     min-width: 200px;
     opacity: 1;
