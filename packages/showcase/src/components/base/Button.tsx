@@ -8,6 +8,8 @@ export const Button = styled.button<{ selected?: boolean }>`
   border-radius: ${theme.radius.md};
   font-size: ${theme.typography.fontSize['BUTTON']};
   transition: all ${theme.transitions.fast};
+  cursor: pointer;
+  user-select: none;
   
   &:hover {
     background: ${theme.colors.primary.button.background.hover};

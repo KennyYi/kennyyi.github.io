@@ -11,6 +11,7 @@ interface Option {
 interface SelectProps {
     label: string;
     options: Option[];
+    selected: Option;
     onSelected: (option: Option) => void;
 }
 
@@ -56,9 +57,9 @@ const Option = styled.div`
     }
 `;
 
-export const Select = ({ label, options, onSelected }: SelectProps) => {
+export const Select = ({ label, options, selected, onSelected }: SelectProps) => {
     const [isOpen, setIsOpen] = useState(false);
-    const [selectedOption, setSelectedOption] = useState<Option | null>(null);
+    const [selectedOption, setSelectedOption] = useState<Option>(selected);
 
     const handleSelect = (option: Option) => {
         setSelectedOption(option);
