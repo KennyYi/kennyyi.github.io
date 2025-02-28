@@ -154,19 +154,19 @@ export const DemoSection = () => {
                 <Text variant="BODY" weight='BOLD' color='primary'>Alignment</Text>
                 <ControllerGroup>
                     <Controller>
-                    <Text variant="LABEL" color='primary'>justify-content</Text>
+                        <Text variant="LABEL" color='primary'>justify-content</Text>
                         <Select label="Justify Content" selected={justifyContentOption} options={JustifyContentOptions} onSelected={(option) => flexStyle.setJustifyContent(
                             option.value as JustifyContent
                         )} />
                     </Controller>
                     <Controller>
-                    <Text variant="LABEL" color='primary'>aling-items</Text>
+                        <Text variant="LABEL" color='primary'>aling-items</Text>
                         <Select label="Align Items" selected={alignItemsOption} options={AlignItemsOptions} onSelected={(option) => flexStyle.setAlignItems(
                             option.value as AlignItems
                         )} />
                     </Controller>
                     <Controller>
-                    <Text variant="LABEL" color='primary'>aling-content</Text>
+                        <Text variant="LABEL" color='primary'>aling-content</Text>
                         <Select label="Align Items" selected={alignContentOption} options={AlignContentOptions} onSelected={(option) => flexStyle.setAlignContent(
                             option.value as AlignContent
                         )} />

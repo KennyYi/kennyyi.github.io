@@ -1,10 +1,63 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useMemo } from 'react';
 
 import { FlexItem as FlexItemStyle } from '../../styles';
 import { Popover } from './Popover';
-import { FlexItemProperties } from '../context/types';
-// import { FlexContext } from '../context/FlexContext';
+import { AlignContent, FlexBasis, FlexItemProperties, FlexShorthand } from '../context/types';
+import { Select } from './Select';
 import Text from './Text';
+import styled from 'styled-components';
+import { theme } from '../../theme';
+
+type FlexItemPropertyType<K extends keyof FlexItemProperties> = 
+    K extends 'flex' ? FlexShorthand :
+    K extends 'flexGrow' ? number :
+    K extends 'flexShrink' ? number :
+    K extends 'flexBasis' ? FlexBasis :
+    K extends 'order' ? number :
+    never;
+
+const Row = styled.div`
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap: ${theme.spacing.sm};
+    align-items: center;
+`;
+
+const FlexOptions: {label: string, value: FlexShorthand}[] = [
+    { label: 'initial', value: 'initial' },
+    { label: 'auto', value: 'auto' },
+    { label: 'none', value: 'none' },
+    { label: '0', value: 0 },
+    { label: '1', value: 1 },
+    { label: '2', value: 2 },
+];
+
+const FlexBasisOptions: {label: string, value: FlexBasis}[] = [
+    { label: 'auto', value: 'auto' },
+    { label: 'content', value: 'content' },
+    { label: '50px', value: '50px' },
+    { label: '50%', value: '50%' },
+    { label: '50rem', value: '50rem' },
+];
+
+const FlexOrderOptions: {label: string, value: number}[] = [
+    { label: '0', value: 0 },
+    { label: '1', value: 1 },
+    { label: '2', value: 2 },
+];
+
+const FlexGrowOptions: {label: string, value: number}[] = [
+    { label: '0', value: 0 },
+    { label: '1', value: 1 },
+    { label: '2', value: 2 },
+];
+
+const FlexShrinkOptions: {label: string, value: number}[] = [
+    { label: '0', value: 0 },
+    { label: '1', value: 1 },
+    { label: '2', value: 2 },
+];
 
 interface FlexItemProps {
     flexProperties: FlexItemProperties;
@@ -13,25 +66,62 @@ interface FlexItemProps {
 
 export const FlexItem: React.FC<FlexItemProps> = ({ flexProperties, children }) => {
 
+    const [itemProperties, setItemProperties] = useState<FlexItemProperties>(flexProperties);
     const [isOpen, setIsOpen] = useState(false);
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
-
-    // const { flexItems, setFlexItems } = useContext(FlexContext);
 
     const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
         setAnchorEl(event.currentTarget);
         setIsOpen(!isOpen);
     };
 
-    // flexProperties to label - value
+    const getOptions = (key: string) => {
+        switch (key) {
+            case 'flex':
+                return FlexOptions;
+            case 'flexGrow':
+                return FlexGrowOptions;
+            case 'flexShrink':
+                return FlexShrinkOptions;
+            case 'flexBasis':
+                return FlexBasisOptions;
+            case 'order':
+                return FlexOrderOptions;
+            default:
+                return [];
+        }
+    }
+
+    const elements = useMemo(() => {
+
+        return (Object.entries(flexProperties) as [keyof FlexItemProperties, any][]).map(([key, value]) => {
+            const options = getOptions(key);
     
+            return (
+                <Row key={key}>
+                    <Text variant="LABEL" color='secondary'>{key}</Text>
+                    <Select
+                        label={key}
+                        selected={value}
+                        options={options}
+                        onSelected={(option) => {
+                            const newValue = option.value as FlexItemPropertyType<typeof key>;
+                            // 타입 안전한 콜백 처리
+                            setItemProperties({...itemProperties, [key]: newValue});
+                        }}
+                    />
+                </Row>
+            );
+        });
+
+    }, [flexProperties]);
 
     return <>
-        <FlexItemStyle onClick={handleClick}>{children}</FlexItemStyle>
+        <FlexItemStyle onClick={handleClick} style={{...itemProperties}}>{children}</FlexItemStyle>
         <Popover open={isOpen} anchorEl={anchorEl} onClose={() => setIsOpen(false)}>
-            {Object.entries(flexProperties).map(([key, value]) => `${key}: ${value}`)
-                .map((property, index) => <Text key={index} variant="LABEL" color='primary'>{property}</Text>)
-            }
+            <div style={{ display: 'flex', flexDirection: 'column', gap: theme.spacing.sm }}>
+                {elements}
+            </div>
         </Popover>
     </>;
 };
