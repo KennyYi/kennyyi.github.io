@@ -5,7 +5,7 @@ import { Button } from './Button';
 
 interface Option {
     label: string;
-    value: string;
+    value: string | number;
 }
 
 interface SelectProps {
