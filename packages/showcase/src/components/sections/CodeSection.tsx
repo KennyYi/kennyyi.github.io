@@ -1,32 +1,19 @@
-import { useContext, useState, useMemo, useEffect } from 'react';
+import { useContext, useState, useMemo } from 'react';
 import styled from 'styled-components';
 import { CodeSectionContainer } from '../../styles';
 import { FlexContext } from '../context/FlexContext';
 import { theme } from '../../theme';
-import Text from '../base/Text';
-import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { Button } from '../base/Button';
+import { Accordian } from '../base/Accordian';
+import { CopyableBox } from '../base/CopyableBox';
+import { generateFlexCode } from '../../utils/utils';
+
 const Row = styled.div`
     width: 100%;
     display: flex;
     flex-direction: row;
     gap: ${theme.spacing.sm};
     align-items: center;
-`;
-
-const StyledCode = styled.pre`
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    background-color: ${theme.colors.secondary.background};
-    color: ${theme.colors.secondary.text.default};
-    border: 1px solid ${theme.colors.secondary.button.border.default};
-    padding: ${theme.spacing.md};
-    border-radius: ${theme.radius.md};
-    font-family: monospace;
-    white-space: pre;
-    height: fit-content;
 `;
 
 const getContentClass = (alignContent: string) => {
@@ -48,94 +35,38 @@ const getContentClass = (alignContent: string) => {
 };
 
 export const CodeSection = () => {
-    const [selectedLanguage, setSelectedLanguage] = useState<'css' | 'scss' | 'styled-components' | 'tailwind'>('css');
+    const [selectedLanguage, setSelectedLanguage] = useState<'css' | 'styled-components'>('css');
     const flexStyle = useContext(FlexContext);
 
-    const cssCode = useMemo(() => `.container {
-    display: flex;
-    flex-direction: ${flexStyle.flexDirection};
-    flex-wrap: ${flexStyle.flexWrap};
-    justify-content: ${flexStyle.justifyContent};
-    align-items: ${flexStyle.alignItems};
-    align-content: ${flexStyle.alignContent};
-    gap: ${flexStyle.gap};
-}`, [flexStyle]);
-
-    const scssCode = useMemo(() => `.container {
-    display: flex;
-    flex: {
-        direction: ${flexStyle.flexDirection};
-        wrap: ${flexStyle.flexWrap};
-    }
-    justify-content: ${flexStyle.justifyContent};
-    align: {
-        align-items: ${flexStyle.alignItems};
-        align-content: ${flexStyle.alignContent};
-    }
-    gap: ${flexStyle.gap};
-}`, [flexStyle]);
-
-    const styledComponentsCode = useMemo(() => `const Container = styled.div\`
-    display: flex;
-    flex-direction: ${flexStyle.flexDirection};
-    flex-wrap: ${flexStyle.flexWrap};
-    justify-content: ${flexStyle.justifyContent};
-    align-items: ${flexStyle.alignItems};
-    align-content: ${flexStyle.alignContent};
-    gap: ${flexStyle.gap};
-\``, [flexStyle]);
-
-    const tailwindCode = useMemo(() => `<div className="
-    flex
-    ${flexStyle.flexDirection === 'row' ? '' : `flex-${flexStyle.flexDirection}`}
-    ${flexStyle.flexWrap === 'nowrap' ? '' : `flex-${flexStyle.flexWrap}`}
-    ${flexStyle.justifyContent === 'flex-start' ? '' : `justify-${flexStyle.justifyContent}`}
-    ${flexStyle.alignItems === 'stretch' ? '' : `items-${flexStyle.alignItems}`}
-    ${getContentClass(flexStyle.alignContent)}
-    gap-${flexStyle.gap}
-">
-    {/* children */}
-</div>`, [flexStyle]);
-
-    const [copied, setCopied] = useState(false);
-
     const code = useMemo(() => {
-        switch (selectedLanguage) {
-            case 'css':
-                return cssCode;
-            case 'scss':
-                return scssCode;
-            case 'styled-components':
-                return styledComponentsCode;
-            case 'tailwind':
-                return tailwindCode;
+
+        const properties = {
+            "display": "flex",
+            "flex-direction": flexStyle.flexDirection,
+            "flex-wrap": flexStyle.flexWrap,
+            "justify-content": flexStyle.justifyContent,
+            "align-items": flexStyle.alignItems,
+            "align-content": flexStyle.alignContent,
         }
-    }, [selectedLanguage, cssCode, scssCode, styledComponentsCode, tailwindCode]);
+        
+        return generateFlexCode(selectedLanguage, properties)
+    }, [selectedLanguage, flexStyle.flexDirection, flexStyle.flexWrap, flexStyle.justifyContent, flexStyle.alignItems, flexStyle.alignContent]);
     
     return (
         <CodeSectionContainer>
-            <Row style={{width: '100%', justifyContent: 'space-between'}}>
+            <Row style={{width: '100%' }}>
                 <Button selected={selectedLanguage === 'css'} onClick={() => setSelectedLanguage('css')}>CSS</Button>
-                <Button selected={selectedLanguage === 'scss'} onClick={() => setSelectedLanguage('scss')}  >SCSS</Button>
                 <Button selected={selectedLanguage === 'styled-components'} onClick={() => setSelectedLanguage('styled-components')}>Styled Components</Button>
-                <Button selected={selectedLanguage === 'tailwind'} onClick={() => setSelectedLanguage('tailwind')}>Tailwind</Button>
             </Row>
-            <StyledCode>
-                <div style={{ display: 'flex', alignItems: 'center', gap: theme.spacing.sm, width: 'inherit', cursor: 'pointer', alignSelf: 'end' }} onClick={() => {
-                        navigator.clipboard.writeText(code);
-                        setCopied(true);
-                    }}>
-                        {copied ? <>
-                            <CheckCircleIcon style={{ fontSize: theme.typography.fontSize.CAPTION }} />
-                            <Text variant="LABEL" color='secondary'>Copied</Text>
-                        </>:<>
-                            <ContentCopyIcon style={{ fontSize: theme.typography.fontSize.CAPTION }} />
-                            <Text variant="LABEL" color='secondary'>Copy</Text>
-                        </>}
-                    
-                </div>
-                {code}
-            </StyledCode>
+
+            <CopyableBox target={code} />
+
+            {flexStyle.flexItems.map((item, index) => (
+                <Accordian key={index} label={"Box "+(index+ 1).toString()}>
+                    <></>
+                </Accordian>
+            ))}
+            
         </CodeSectionContainer>
     );
 };
