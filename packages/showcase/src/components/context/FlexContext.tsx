@@ -1,5 +1,5 @@
-import { createContext, useState, useEffect } from 'react';
-import { AlignContent, AlignItems, AlignSelf, DEFAULT_FLEX_ITEM_PROPERTIES, Direction, FlexBasis, FlexItemProperties, FlexItemValue, FlexValue, FlexWrap, JustifyContent } from './types';
+import { createContext, useState } from 'react';
+import { AlignContent, AlignItems, AlignSelf, DEFAULT_FLEX_ITEM_PROPERTIES, Direction, FlexBasis, FlexItemProperties, FlexValue, FlexWrap, JustifyContent } from './types';
 
 export const FlexContext = createContext<FlexValue>({
     flexDirection: 'row',

@@ -115,7 +115,13 @@ export const DemoSection = () => {
 
     const flexItems = useMemo((): React.ReactElement[] => {
         return flexStyle.flexItems.map((item, index) => (
-            <FlexItem key={'item-'+index} flexProperties={item}>Box {index + 1}</FlexItem>
+            <FlexItem 
+                key={'item-'+index} 
+                flexProperties={item} 
+                onPropertiesChange={(properties) => {
+                    flexStyle.setFlexItems(flexStyle.flexItems.map((item, i) => i === index ? properties : item));
+                }}
+            >Box {index + 1}</FlexItem>
         ));
     }, [flexStyle.flexItems]);
 

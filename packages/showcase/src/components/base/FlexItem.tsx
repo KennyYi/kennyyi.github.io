@@ -1,8 +1,8 @@
-import React, { useContext, useState, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 
 import { FlexItem as FlexItemStyle } from '../../styles';
 import { Popover } from './Popover';
-import { AlignContent, FlexBasis, FlexItemProperties, FlexShorthand } from '../context/types';
+import { FlexBasis, FlexItemProperties, FlexShorthand } from '../context/types';
 import { Select } from './Select';
 import Text from './Text';
 import styled from 'styled-components';
@@ -61,12 +61,12 @@ const FlexShrinkOptions: {label: string, value: number}[] = [
 
 interface FlexItemProps {
     flexProperties: FlexItemProperties;
+    onPropertiesChange: (properties: FlexItemProperties) => void;
     children: React.ReactNode;
 }
 
-export const FlexItem: React.FC<FlexItemProps> = ({ flexProperties, children }) => {
+export const FlexItem: React.FC<FlexItemProps> = ({ flexProperties, onPropertiesChange, children }) => {
 
-    const [itemProperties, setItemProperties] = useState<FlexItemProperties>(flexProperties);
     const [isOpen, setIsOpen] = useState(false);
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
@@ -96,28 +96,31 @@ export const FlexItem: React.FC<FlexItemProps> = ({ flexProperties, children }) 
 
         return (Object.entries(flexProperties) as [keyof FlexItemProperties, any][]).map(([key, value]) => {
             const options = getOptions(key);
-    
+            const selectedOption = options.find(option => option.value === value);
+
+            if (!selectedOption) {
+                return null;
+            }
+
             return (
                 <Row key={key}>
                     <Text variant="LABEL" color='secondary'>{key}</Text>
                     <Select
                         label={key}
-                        selected={value}
+                        selected={selectedOption}
                         options={options}
                         onSelected={(option) => {
                             const newValue = option.value as FlexItemPropertyType<typeof key>;
-                            // 타입 안전한 콜백 처리
-                            setItemProperties({...itemProperties, [key]: newValue});
+                            onPropertiesChange({...flexProperties, [key]: newValue});
                         }}
                     />
                 </Row>
             );
         });
-
-    }, [flexProperties]);
+    }, [flexProperties, onPropertiesChange]);
 
     return <>
-        <FlexItemStyle onClick={handleClick} style={{...itemProperties}}>{children}</FlexItemStyle>
+        <FlexItemStyle onClick={handleClick} style={{...flexProperties}}>{children}</FlexItemStyle>
         <Popover open={isOpen} anchorEl={anchorEl} onClose={() => setIsOpen(false)}>
             <div style={{ display: 'flex', flexDirection: 'column', gap: theme.spacing.sm }}>
                 {elements}

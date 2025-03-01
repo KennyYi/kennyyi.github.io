@@ -5,7 +5,7 @@ import { Button } from './Button';
 
 interface Option {
     label: string;
-    value: string | number;
+    value: any;
 }
 
 interface SelectProps {
@@ -45,7 +45,7 @@ const OptionsContainer = styled.div<{ isOpen: boolean }>`
     display: ${({ isOpen }) => (isOpen ? 'block' : 'none')};
 `;
 
-const Option = styled.div`
+const OptionItem = styled.div`
     padding: ${theme.spacing.sm};
     cursor: pointer;
     border-radius: ${theme.radius.sm};
@@ -74,9 +74,9 @@ export const Select = ({ label, options, selected, onSelected }: SelectProps) =>
             </SelectButton>
             <OptionsContainer isOpen={isOpen}>
                 {options.map((option) => (
-                    <Option key={option.value} onClick={() => handleSelect(option)}>
+                    <OptionItem key={option.value} onClick={() => handleSelect(option)}>
                         {option.label}
-                    </Option>
+                    </OptionItem>
                 ))}
             </OptionsContainer>
         </SelectContainer>
