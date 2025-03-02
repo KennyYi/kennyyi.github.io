@@ -39,7 +39,6 @@ export const CodeSection = () => {
     const flexStyle = useContext(FlexContext);
 
     const code = useMemo(() => {
-
         const properties = {
             "display": "flex",
             "flex-direction": flexStyle.flexDirection,
@@ -61,11 +60,21 @@ export const CodeSection = () => {
 
             <CopyableBox target={code} />
 
-            {flexStyle.flexItems.map((item, index) => (
-                <Accordian key={index} label={"Box "+(index+ 1).toString()}>
-                    <></>
-                </Accordian>
-            ))}
+            {flexStyle.flexItems.map((item, index) => {
+                const itemProperties = {
+                    "flex": item.flex,
+                    "flex-grow": flexStyle.flexGrow,
+                    "flex-shrink": flexStyle.flexShrink,
+                    "flex-basis": flexStyle.flexBasis,
+                    "order": flexStyle.order,
+                }
+
+                const itemCode = generateFlexCode(selectedLanguage, itemProperties)
+
+                return  <Accordian key={index} label={"Box "+(index+ 1).toString()}>
+                    <CopyableBox target={itemCode} />
+                </Accordian>;
+            })}
             
         </CodeSectionContainer>
     );
