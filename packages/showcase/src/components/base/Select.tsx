@@ -35,6 +35,13 @@ const SelectButton = styled(Button)<{ $disabled: boolean }>`
         color: ${theme.colors.primary.text.disabled}
         cursor: not-allowed;
     `}
+
+    &:hover {
+        ${(p) => p.$disabled && css`
+            background: ${theme.colors.primary.button.background.disabled};
+            color: ${theme.colors.primary.text.disabled};
+        `}        
+    }
 `;
 
 const OptionsContainer = styled.div<{ isopen: boolean }>`
