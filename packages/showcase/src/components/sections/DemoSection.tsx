@@ -119,6 +119,13 @@ export const DemoSection = () => {
                 key={'item-'+index} 
                 flexProperties={item} 
                 onPropertiesChange={(properties) => {
+
+                    // console.log("[Kenny] "+JSON.stringify(properties));
+
+                    const a = flexStyle.flexItems.map((item, i) => i === index ? properties : item);
+
+                    console.log("[Kenny] "+JSON.stringify(a));
+
                     flexStyle.setFlexItems(flexStyle.flexItems.map((item, i) => i === index ? properties : item));
                 }}
             >Box {index + 1}</FlexItem>
@@ -143,15 +150,25 @@ export const DemoSection = () => {
                 <ControllerGroup>
                     <Controller>
                         <Text variant="LABEL" color='primary'>flex-direction:</Text>
-                        <Select label="Direction" selected={directionOption} options={DirectionOptions} onSelected={(option) => flexStyle.setFlexDirection(
-                            option.value as Direction
-                        )} />
+                        <Select 
+                            label="Direction" 
+                            selected={directionOption} 
+                            options={DirectionOptions} 
+                            disabled={false}
+                            onSelected={(option) => flexStyle.setFlexDirection(
+                                option.value as Direction
+                            )} />
                     </Controller>
                     <Controller>
                     <Text variant="LABEL" color='primary'>flex-wrap:</Text>
-                        <Select label="Flex Wrap" selected={flexWrapOption} options={FlexWrapOptions} onSelected={(option) => flexStyle.setFlexWrap(
-                            option.value as FlexWrap
-                        )} />
+                        <Select 
+                            label="Flex Wrap" 
+                            selected={flexWrapOption} 
+                            options={FlexWrapOptions} 
+                            disabled={false}
+                            onSelected={(option) => flexStyle.setFlexWrap(
+                                option.value as FlexWrap
+                            )} />
                     </Controller>
                 </ControllerGroup>
             </Column>
@@ -161,21 +178,36 @@ export const DemoSection = () => {
                 <ControllerGroup>
                     <Controller>
                         <Text variant="LABEL" color='primary'>justify-content</Text>
-                        <Select label="Justify Content" selected={justifyContentOption} options={JustifyContentOptions} onSelected={(option) => flexStyle.setJustifyContent(
-                            option.value as JustifyContent
-                        )} />
+                        <Select 
+                            label="Justify Content" 
+                            selected={justifyContentOption} 
+                            options={JustifyContentOptions} 
+                            disabled={false}
+                            onSelected={(option) => flexStyle.setJustifyContent(
+                                option.value as JustifyContent
+                            )} />
                     </Controller>
                     <Controller>
                         <Text variant="LABEL" color='primary'>aling-items</Text>
-                        <Select label="Align Items" selected={alignItemsOption} options={AlignItemsOptions} onSelected={(option) => flexStyle.setAlignItems(
-                            option.value as AlignItems
+                        <Select 
+                            label="Align Items" 
+                            selected={alignItemsOption} 
+                            options={AlignItemsOptions} 
+                            disabled={false}
+                            onSelected={(option) => flexStyle.setAlignItems(
+                                option.value as AlignItems
                         )} />
                     </Controller>
                     <Controller>
                         <Text variant="LABEL" color='primary'>aling-content</Text>
-                        <Select label="Align Items" selected={alignContentOption} options={AlignContentOptions} onSelected={(option) => flexStyle.setAlignContent(
-                            option.value as AlignContent
-                        )} />
+                        <Select 
+                            label="Align Items" 
+                            selected={alignContentOption} 
+                            options={AlignContentOptions} 
+                            disabled={false}
+                            onSelected={(option) => flexStyle.setAlignContent(
+                                option.value as AlignContent
+                            )} />
                     </Controller>
                 </ControllerGroup>
             </Column>

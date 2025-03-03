@@ -29,12 +29,12 @@ export const WithButton: Story = {
         onClose: () => {},
     },
     render: () => {
-        const [isOpen, setIsOpen] = useState(false);
+        const [isopen, setIsopen] = useState(false);
         const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
         const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
             setAnchorEl(event.currentTarget);
-            setIsOpen(!isOpen);
+            setIsopen(!isopen);
         };
 
         return (
@@ -43,9 +43,9 @@ export const WithButton: Story = {
                     Click me
                 </Button>
                 <Popover 
-                    open={isOpen} 
+                    open={isopen} 
                     anchorEl={anchorEl}
-                    onClose={() => setIsOpen(false)}
+                    onClose={() => setIsopen(false)}
                 >
                     This is a popover content
                 </Popover>

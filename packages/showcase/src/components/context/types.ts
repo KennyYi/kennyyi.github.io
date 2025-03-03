@@ -3,12 +3,12 @@ export type FlexWrap = 'wrap' | 'wrap-reverse' | 'nowrap';
 export type JustifyContent = 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around' | 'space-evenly';
 export type AlignItems = 'flex-start' | 'flex-end' | 'center' | 'baseline' | 'stretch';
 export type AlignContent = 'flex-start' | 'flex-end' | 'center' | 'space-between' | 'space-around' | 'stretch';
-export type FlexBasis = 'auto' | 'content' | '0' | `${number}px` | `${number}%` | `${number}rem` | `${number}em` | `${number}vh` | `${number}vw` | `${number}vmin` | `${number}vmax`;
+export type FlexBasis = 'auto' | 'content' | '20%' | '50%' | '100px' | '200px' | 'null'
 export type AlignSelf = 'auto' | 'flex-start' | 'flex-end' | 'center' | 'baseline' | 'stretch';
-export type FlexShorthand = 'initial' | 'auto' | 'none' | number;
+export type FlexMode = 'none' | 'flex';
 
 export type FlexItemProperties = {
-    flex: FlexShorthand;
+    flexMode: FlexMode;
     flexGrow: number;
     flexShrink: number;
     flexBasis: FlexBasis;
@@ -16,7 +16,7 @@ export type FlexItemProperties = {
 };
 
 export type FlexItemValue = FlexItemProperties & {
-    setFlex: (flex: FlexShorthand) => void;
+    setFlexMode: (flex: FlexMode) => void;
     setFlexGrow: (grow: number) => void;
     setFlexShrink: (shrink: number) => void;
     setFlexBasis: (basis: FlexBasis) => void;
@@ -60,7 +60,7 @@ export type FlexValue = FlexProperties & {
 };
 
 export const DEFAULT_FLEX_ITEM_PROPERTIES: FlexItemProperties = {
-    flex: 'auto',
+    flexMode: 'flex',
     flexGrow: 0,
     flexShrink: 1,
     flexBasis: 'auto',

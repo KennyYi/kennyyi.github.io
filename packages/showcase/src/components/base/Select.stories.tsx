@@ -21,5 +21,6 @@ export const Default: Story = {
         ],
         onSelected: () => {},
         selected: { label: 'Option 1', value: 'option1' },
+        disabled: false,
     },
 };
