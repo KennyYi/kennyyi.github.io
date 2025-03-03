@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { theme } from '../../theme';
 import { Button } from './Button';
 
@@ -12,6 +12,7 @@ interface SelectProps {
     label: string;
     options: Option[];
     selected: Option;
+    disabled: boolean;
     onSelected: (option: Option) => void;
 }
 
@@ -20,7 +21,7 @@ const SelectContainer = styled.div`
     min-width: 120px;
 `;
 
-const SelectButton = styled(Button)`
+const SelectButton = styled(Button)<{ $disabled: boolean }>`
     width: 100%;
     padding: ${theme.spacing.sm};
     border: 1px solid ${theme.colors.primary.button.border.default};
@@ -28,9 +29,15 @@ const SelectButton = styled(Button)`
     background: ${theme.colors.primary.button.background.default};
     cursor: pointer;
     text-align: left;
+
+    ${(p) => p.$disabled && css`
+        background: ${theme.colors.primary.button.background.disabled};
+        color: ${theme.colors.primary.text.disabled}
+        cursor: not-allowed;
+    `}
 `;
 
-const OptionsContainer = styled.div<{ isOpen: boolean }>`
+const OptionsContainer = styled.div<{ isopen: boolean }>`
     position: absolute;
     top: 100%;
     left: 0;
@@ -42,7 +49,7 @@ const OptionsContainer = styled.div<{ isOpen: boolean }>`
     border-radius: ${theme.radius.md};
     box-shadow: ${theme.shadow.md};
     z-index: ${theme.zIndex.dropdown};
-    display: ${({ isOpen }) => (isOpen ? 'block' : 'none')};
+    display: ${({ isopen }) => (isopen ? 'block' : 'none')};
 `;
 
 const OptionItem = styled.div`
@@ -57,22 +64,25 @@ const OptionItem = styled.div`
     }
 `;
 
-export const Select = ({ label, options, selected, onSelected }: SelectProps) => {
-    const [isOpen, setIsOpen] = useState(false);
+export const Select = ({ label, options, selected, disabled, onSelected }: SelectProps) => {
+    const [isopen, setIsopen] = useState(false);
     const [selectedOption, setSelectedOption] = useState<Option>(selected);
 
     const handleSelect = (option: Option) => {
         setSelectedOption(option);
         onSelected(option);
-        setIsOpen(false);
+        setIsopen(false);
     };
 
     return (
-        <SelectContainer>
-            <SelectButton onClick={() => setIsOpen(!isOpen)}>
+        <SelectContainer >
+            <SelectButton onClick={() => {
+                if (disabled) return;
+                setIsopen(!isopen);
+            }} $disabled={disabled}>
                 {selectedOption?.label || label}
             </SelectButton>
-            <OptionsContainer isOpen={isOpen}>
+            <OptionsContainer isopen={isopen}>
                 {options.map((option) => (
                     <OptionItem key={option.value} onClick={() => handleSelect(option)}>
                         {option.label}

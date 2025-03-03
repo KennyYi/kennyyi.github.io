@@ -2,14 +2,14 @@ import React, { useState, useMemo } from 'react';
 
 import { FlexItem as FlexItemStyle } from '../../styles';
 import { Popover } from './Popover';
-import { FlexBasis, FlexItemProperties, FlexShorthand } from '../context/types';
+import { FlexBasis, FlexItemProperties, FlexMode } from '../context/types';
 import { Select } from './Select';
 import Text from './Text';
 import styled from 'styled-components';
 import { theme } from '../../theme';
 
 type FlexItemPropertyType<K extends keyof FlexItemProperties> = 
-    K extends 'flex' ? FlexShorthand :
+    K extends 'flexMode' ? FlexMode :
     K extends 'flexGrow' ? number :
     K extends 'flexShrink' ? number :
     K extends 'flexBasis' ? FlexBasis :
@@ -24,21 +24,19 @@ const Row = styled.div`
     align-items: center;
 `;
 
-const FlexOptions: {label: string, value: FlexShorthand}[] = [
-    { label: 'initial', value: 'initial' },
-    { label: 'auto', value: 'auto' },
+const FlexOptions: {label: string, value: FlexMode}[] = [
     { label: 'none', value: 'none' },
-    { label: '0', value: 0 },
-    { label: '1', value: 1 },
-    { label: '2', value: 2 },
+    { label: 'flex', value: 'flex' }
 ];
 
 const FlexBasisOptions: {label: string, value: FlexBasis}[] = [
     { label: 'auto', value: 'auto' },
     { label: 'content', value: 'content' },
-    { label: '50px', value: '50px' },
+    { label: '20%', value: '20%' },
     { label: '50%', value: '50%' },
-    { label: '50rem', value: '50rem' },
+    { label: '100px', value: '100px' },
+    { label: '200px', value: '200px' },
+    { label: 'null', value: 'null' },
 ];
 
 const FlexOrderOptions: {label: string, value: number}[] = [
@@ -67,17 +65,17 @@ interface FlexItemProps {
 
 export const FlexItem: React.FC<FlexItemProps> = ({ flexProperties, onPropertiesChange, children }) => {
 
-    const [isOpen, setIsOpen] = useState(false);
+    const [isopen, setIsopen] = useState(false);
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
 
     const handleClick = (event: React.MouseEvent<HTMLDivElement>) => {
         setAnchorEl(event.currentTarget);
-        setIsOpen(!isOpen);
+        setIsopen(!isopen);
     };
 
     const getOptions = (key: string) => {
         switch (key) {
-            case 'flex':
+            case 'flexMode':
                 return FlexOptions;
             case 'flexGrow':
                 return FlexGrowOptions;
@@ -95,12 +93,14 @@ export const FlexItem: React.FC<FlexItemProps> = ({ flexProperties, onProperties
     const elements = useMemo(() => {
 
         return (Object.entries(flexProperties) as [keyof FlexItemProperties, any][]).map(([key, value]) => {
-            const options = getOptions(key);
+            const options: { label: string, value: string | number}[] = getOptions(key);
             const selectedOption = options.find(option => option.value === value);
 
             if (!selectedOption) {
                 return null;
             }
+
+            const disabled = (key !== 'flexMode' && flexProperties['flexMode'] !== 'flex');
 
             return (
                 <Row key={key}>
@@ -108,6 +108,7 @@ export const FlexItem: React.FC<FlexItemProps> = ({ flexProperties, onProperties
                     <Select
                         label={key}
                         selected={selectedOption}
+                        disabled={disabled}
                         options={options}
                         onSelected={(option) => {
                             const newValue = option.value as FlexItemPropertyType<typeof key>;
@@ -121,7 +122,7 @@ export const FlexItem: React.FC<FlexItemProps> = ({ flexProperties, onProperties
 
     return <>
         <FlexItemStyle onClick={handleClick} style={{...flexProperties}}>{children}</FlexItemStyle>
-        <Popover open={isOpen} anchorEl={anchorEl} onClose={() => setIsOpen(false)}>
+        <Popover open={isopen} anchorEl={anchorEl} onClose={() => setIsopen(false)}>
             <div style={{ display: 'flex', flexDirection: 'column', gap: theme.spacing.sm }}>
                 {elements}
             </div>

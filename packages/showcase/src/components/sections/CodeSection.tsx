@@ -62,11 +62,11 @@ export const CodeSection = () => {
 
             {flexStyle.flexItems.map((item, index) => {
                 const itemProperties = {
-                    "flex": item.flex,
-                    "flex-grow": flexStyle.flexGrow,
-                    "flex-shrink": flexStyle.flexShrink,
-                    "flex-basis": flexStyle.flexBasis,
-                    "order": flexStyle.order,
+                    "// flex":  `${item.flexGrow} ${item.flexShrink}${item.flexBasis !== "null"?" "+item.flexBasis:""}, // flex-shorthand `,
+                    "flex-grow": item.flexGrow,
+                    "flex-shrink": item.flexShrink,
+                    "flex-basis": item.flexBasis,
+                    "order": item.order,
                 }
 
                 const itemCode = generateFlexCode(selectedLanguage, itemProperties)
