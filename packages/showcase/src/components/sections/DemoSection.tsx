@@ -119,7 +119,6 @@ export const DemoSection = () => {
                 key={'item-'+index} 
                 flexProperties={item} 
                 onPropertiesChange={(properties) => {
-                    const a = flexStyle.flexItems.map((item, i) => i === index ? properties : item);
                     flexStyle.setFlexItems(flexStyle.flexItems.map((item, i) => i === index ? properties : item));
                 }}
             >Box {index + 1}</FlexItem>
