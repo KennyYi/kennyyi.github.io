@@ -22,7 +22,6 @@ jobs:
 
       - name: Build project
         run: |
-          cd packages/showcase  # showcase 폴더로 이동
           npm install
           npm run build
 
@@ -30,5 +29,5 @@ jobs:
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./packages/showcase/build 
+          publish_dir: ./build 
           publish_branch: gh-pages
