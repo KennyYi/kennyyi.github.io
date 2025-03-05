@@ -16,24 +16,6 @@ const Row = styled.div`
     align-items: center;
 `;
 
-const getContentClass = (alignContent: string) => {
-    // normal 값은 클래스를 생성하지 않음
-    if (alignContent === 'normal') return '';
-    
-    // Tailwind에서 지원하는 값들로 매핑
-    const contentMap: Record<string, string> = {
-        'flex-start': 'content-start',
-        'flex-end': 'content-end',
-        'center': 'content-center',
-        'space-between': 'content-between',
-        'space-around': 'content-around',
-        'space-evenly': 'content-evenly',
-        'stretch': 'content-stretch'
-    };
-
-    return contentMap[alignContent] || '';
-};
-
 export const CodeSection = () => {
     const [selectedLanguage, setSelectedLanguage] = useState<'css' | 'styled-components'>('css');
     const flexStyle = useContext(FlexContext);

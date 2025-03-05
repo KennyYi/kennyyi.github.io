@@ -119,17 +119,12 @@ export const DemoSection = () => {
                 key={'item-'+index} 
                 flexProperties={item} 
                 onPropertiesChange={(properties) => {
-
-                    // console.log("[Kenny] "+JSON.stringify(properties));
-
                     const a = flexStyle.flexItems.map((item, i) => i === index ? properties : item);
-
-                    console.log("[Kenny] "+JSON.stringify(a));
-
                     flexStyle.setFlexItems(flexStyle.flexItems.map((item, i) => i === index ? properties : item));
                 }}
             >Box {index + 1}</FlexItem>
         ));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [flexStyle.flexItems]);
 
     const handleChangeFlexItem = useCallback((count: number) => {
@@ -140,6 +135,7 @@ export const DemoSection = () => {
         } else {
             flexStyle.setFlexItems(flexStyle.flexItems.slice(0, count));
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [flexStyle.flexItems]);
 
     return (<DemoSectionContainer style={{display: 'flex', flex: 1, height: '100%', flexDirection: 'column', gap: theme.spacing.md}}>
