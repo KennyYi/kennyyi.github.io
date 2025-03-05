@@ -15,11 +15,11 @@
 export type CodeStyle = "css" | "styled-components" | "tailwind";
 
 const generateCss = (properties: Record<string, any>): string => {
-    return ".container {\n"+Object.entries(properties).map(([key, value]) => `    ${key}: ${value};`).join('\n')+"\n\`}";
+    return ".container {\n"+Object.entries(properties).map(([key, value]) => `    ${key}: ${value};`).join('\n')+"\n`}";
 }
 
 const generateStyledComponents = (properties: Record<string, any>): string => {
-    return "const Container = styled.div\`\n"+Object.entries(properties).map(([key, value]) => `    ${key}: ${value};`).join('\n')+"\n\`}";
+    return "const Container = styled.div`\n"+Object.entries(properties).map(([key, value]) => `    ${key}: ${value};`).join('\n')+"\n`}";
 }
 
 export const generateFlexCode = (codeStyle: CodeStyle, properties: Record<string, any>) => {
