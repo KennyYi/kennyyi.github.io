@@ -15,7 +15,7 @@ const Container = styled.div`
     padding: 1px;
     border: 1px solid ${theme.colors.secondary.background};
     border-radius: ${theme.radius.sm};
-    width: 500px;
+    width: 100%;
     height: 200px;
 `;
 
@@ -24,6 +24,7 @@ const ControllerGroup = styled.div`
     flex-direction: row;
     gap: ${theme.spacing.md};
     justify-content: flex-start;
+    flex-wrap: wrap;
 `;
 
 const Controller = styled.div`
@@ -141,7 +142,7 @@ export const DemoSection = () => {
         
         <ControllerBox>
             <Column>
-                <Text variant="BODY" weight='BOLD' color='primary'>Directions</Text>
+                <Text variant="BODY" weight='BOLD' color='primary' style={{ alignSelf: "start" }}>Directions</Text>
                 <ControllerGroup>
                     <Controller>
                         <Text variant="LABEL" color='primary'>flex-direction:</Text>
@@ -169,7 +170,7 @@ export const DemoSection = () => {
             </Column>
 
             <Column>
-                <Text variant="BODY" weight='BOLD' color='primary'>Alignment</Text>
+                <Text variant="BODY" weight='BOLD' color='primary' style={{ alignSelf: "start" }}>Alignment</Text>
                 <ControllerGroup>
                     <Controller>
                         <Text variant="LABEL" color='primary'>justify-content</Text>
@@ -208,7 +209,7 @@ export const DemoSection = () => {
             </Column>
 
             <Column>
-                <Text variant="BODY" weight='BOLD' color='primary'>Childrens</Text>
+                <Text variant="BODY" weight='BOLD' color='primary' style={{ alignSelf: "start" }}>Childrens</Text>
                 <Row>
                     <Button onClick={() => handleChangeFlexItem(Math.max(flexStyle.flexItems.length - 1, MIN_CHILDREN))}>-</Button>
                     <Text variant="BODY" weight='BOLD' color='primary'>{flexStyle.flexItems.length}</Text>

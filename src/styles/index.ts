@@ -22,6 +22,7 @@ export const DemoSectionContainer = styled.div`
 
     @media (max-width: ${theme.breakpoints.mobile}) {
         padding: ${theme.spacing.md};
+        flex-grow: 1;
     }
 `;
 
