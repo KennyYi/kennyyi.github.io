@@ -79,7 +79,7 @@ export const theme = {
       fast: '0.2s ease',
     },
     breakpoints: {
-      mobile: '768px',
+      mobile: '430px',
       desktop: '1024px',
     },
   

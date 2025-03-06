@@ -18,7 +18,9 @@ const StyledCode = styled.pre`
     border-radius: ${theme.radius.md};
     font-family: monospace;
     white-space: pre;
+    width: 100%;
     height: fit-content;
+    text-align: start;
 `;
 
 interface CopyableBoxProps {
